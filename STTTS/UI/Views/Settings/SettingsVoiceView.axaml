@@ -1,0 +1,23 @@
+<UserControl x:Class="STTTS.UI.Views.Settings.SettingsVoiceView"
+			 xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:STTTS.UI.ViewModels.Settings"
+			 xmlns:views="using:STTTS.UI.Views"
+             mc:Ignorable="d"
+			 x:CompileBindings="True"
+             x:DataType="vm:SettingsVoiceViewModel">
+	<ScrollViewer Name="VoicePage"
+				  HorizontalAlignment="Stretch"
+				  VerticalAlignment="Stretch"
+				  HorizontalScrollBarVisibility="Disabled"
+				  VerticalScrollBarVisibility="Auto">
+		<StackPanel Margin="10"
+					HorizontalAlignment="Stretch"
+					Orientation="Vertical"
+					Spacing="10">
+			<views:VoiceSelectorView DataContext="{Binding VoiceSelectorVM}" />
+		</StackPanel>
+	</ScrollViewer>
+</UserControl>

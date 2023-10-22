@@ -1,0 +1,28 @@
+<UserControl x:Class="STTTS.UI.Views.AudioDeviceSelectorView"
+			 xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:STTTS.UI.ViewModels"
+             mc:Ignorable="d"
+			 x:CompileBindings="True"
+			 x:DataType="vm:AudioDeviceSelectorViewModel">
+	<StackPanel Margin="10,0,0,0"
+				Orientation="Horizontal">
+		<TextBlock TextAlignment="Left"
+				   VerticalAlignment="Center"
+				   Text="{Binding AudioDeviceType}"
+				   Width="250"
+				    />
+		<ComboBox ItemsSource="{Binding Devices}"
+				  SelectedIndex="{Binding SelectedDeviceIndex}"
+				  HorizontalAlignment="Center"
+				  Width="350" >
+			<ComboBox.ItemTemplate>
+				<DataTemplate>
+					<TextBlock Text="{Binding FriendlyName}" />
+				</DataTemplate>
+			</ComboBox.ItemTemplate>
+		</ComboBox>
+	</StackPanel>
+</UserControl>

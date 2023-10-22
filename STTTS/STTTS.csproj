@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <BaseOutputPath>..\build</BaseOutputPath>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Engine\TTS\" />
+    <Folder Include="UI\Models\" />
+    <AvaloniaResource Include="Assets\**" />
+    <Folder Include="Configuration\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TrimmerRootAssembly Include="Avalonia.Themes.Fluent" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Desktop" />
+    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" />
+    <PackageReference Include="Avalonia.ReactiveUI" />
+    <PackageReference Include="Avalonia.Themes.Fluent" />
+    <PackageReference Include="FluentAvaloniaUI" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\STTTS.Common\STTTS.Common.csproj" />
+    <ProjectReference Include="..\STTTS.Engine.STT\STTTS.Engine.STT.csproj" />
+    <ProjectReference Include="..\STTTS.Engine.TTS\STTTS.Engine.TTS.csproj" />
+    <ProjectReference Include="..\STTTS.IO\STTTS.IO.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="UI\Views\AudioDeviceSelectorView.axaml.cs">
+      <DependentUpon>AudioDeviceSelectorView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Views\Settings\SettingsAudioView.axaml.cs">
+      <DependentUpon>SettingsAudioView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Views\Settings\SettingsVoskModelView.axaml.cs">
+      <DependentUpon>SettingsVoskModelView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Windows\SettingsWIndow.axaml.cs">
+      <DependentUpon>SettingsWindow.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>
