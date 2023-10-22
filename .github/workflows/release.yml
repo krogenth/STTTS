@@ -67,12 +67,12 @@ jobs:
 
       - name: Run Publish
         run: |
-          dotnet publish -c Release -r "${{ matrix.DOTNET_RUNTIME_IDENTIFIER }}" -o ./${{ env.PUBLISH_DIRECTORY }} -p:Version="${{ steps.version_info.outputs.build_version }}" -p:SourceRevisionId="${{ steps.version_info.outputs.git_short_hash }}" -p:DebugType=embedded src/G2DataGUI --self-contained true
+          dotnet publish -c Release -r "${{ matrix.DOTNET_RUNTIME_IDENTIFIER }}" -o ./${{ env.PUBLISH_DIRECTORY }} -p:Version="${{ steps.version_info.outputs.build_version }}" -p:SourceRevisionId="${{ steps.version_info.outputs.git_short_hash }}" -p:DebugType=embedded STTTS --self-contained true
 
       - name: Pack Windows Build
         if : matrix.os == 'windows-latest'
         run: |
-          7z a ./${{ env.RELEASE_DIRECTORY }}/G2DataGUI-${{ steps.version_info.outputs.build_version }}-win_x64.zip ./${{ env.PUBLISH_DIRECTORY }}
+          7z a ./${{ env.RELEASE_DIRECTORY }}/STTTS-${{ steps.version_info.outputs.build_version }}-win_x64.zip ./${{ env.PUBLISH_DIRECTORY }}
         shell: bash
 
       - name: Push Release
