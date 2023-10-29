@@ -20,5 +20,8 @@
 
 		<!-- Text-to-Speech Frameworks -->
 		<PackageVersion Include="System.Speech" Version="7.0.0" />
+
+		<!-- Open Sound Control Framework -->
+		<PackageVersion Include="BuildSoft.OscCore" Version="1.2.1.1" />
   </ItemGroup>
 </Project>

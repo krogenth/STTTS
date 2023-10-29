@@ -12,7 +12,8 @@
 		<StackPanel Orientation="Vertical"
 					Margin="10">
 			<TextBlock Text="Recognizer:" />
-			<StackPanel Orientation="Horizontal" Spacing="10">
+			<StackPanel Orientation="Horizontal"
+						Spacing="10">
 				<Button Command="{Binding StartRecognizer}" IsEnabled="{Binding CanStartRecognizer}">Start</Button>
 				<Button Command="{Binding PauseRecognizer}" IsEnabled="{Binding CanPauseRecognizer}">Pause</Button>
 				<Button Command="{Binding StopRecognizer}" IsEnabled="{Binding CanStopRecognizer}">Stop</Button>
@@ -22,11 +23,21 @@
 		<StackPanel Orientation="Vertical"
 					Margin="10">
 			<TextBlock Text="Synthesizer:" />
-			<StackPanel Orientation="Horizontal" Spacing="10">
+			<StackPanel Orientation="Horizontal"
+						Spacing="10">
 				<Button Command="{Binding StartSynthesizer}" IsEnabled="{Binding CanStartSynthesizer}">Start</Button>
 				<Button Command="{Binding PauseSynthesizer}" IsEnabled="{Binding CanPauseSynthesizer}">Pause</Button>
 				<Button Command="{Binding StopSynthesizer}" IsEnabled="{Binding CanStopSynthesizer}">Stop</Button>
 				<CheckBox IsChecked="{Binding BaseSpeechSynthesizer.DoPlayback}">Playback?</CheckBox>
+			</StackPanel>
+		</StackPanel>
+
+		<StackPanel Orientation="Vertical"
+					Margin="10">
+			<TextBlock Text="OSC:" />
+			<StackPanel Orientation="Horizontal"
+						Spacing="10">
+				<CheckBox IsChecked="{Binding OSC.OpenChatWindow}">Open Chat Window?</CheckBox>
 			</StackPanel>
 		</StackPanel>
 		<TextBlock Text="{Binding RecognizedText}" />

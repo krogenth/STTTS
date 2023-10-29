@@ -8,20 +8,12 @@ using STTTS.Common.Configuration;
 
 namespace STTTS.Engine.TTS.Synthesizers;
 
-public class SystemSpechSynthesizer : BaseSpeechSynthesizer
+public class SystemSpeechSynthesizer : BaseSpeechSynthesizer
 {
 	private SpeechSynthesizer? _synthesizer = null;
 	private CancellationTokenSource? _cancellationTokenSource = null;
 	private CancellationToken? _cancellationToken = null;
 	private Task? _speechTask = null;
-
-	~SystemSpechSynthesizer()
-	{
-		if (_synthesizer != null)
-		{
-			_synthesizer.Dispose();
-		}
-	}
 
 	public override bool Start()
 	{
@@ -130,9 +122,19 @@ public class SystemSpechSynthesizer : BaseSpeechSynthesizer
 				_cancellationToken = null;
 			}
 
+			_synthesizer?.Dispose();
+
 			Paused = false;
 			Stopped = true;
 			OnStateChanged();
+		}
+	}
+
+	public override void Dispose()
+	{
+		if (!Stopped)
+		{
+			Stop();
 		}
 	}
 }

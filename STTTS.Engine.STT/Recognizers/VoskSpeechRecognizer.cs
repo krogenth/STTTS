@@ -122,6 +122,14 @@ public class VoskSpeechRecognizer : BaseSpeechRecognizer
 			OnStateChanged();
 		}
 	}
+
+	public override void Dispose()
+	{
+		if (!Stopped)
+		{
+			Stop();
+		}
+	}
 }
 
 public class VoskResultWord

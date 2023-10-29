@@ -2,6 +2,7 @@
 using STTTS.Common.Events;
 using STTTS.Engine.STT.Recognizers;
 using STTTS.Engine.TTS.Synthesizers;
+using STTTS.Integrations;
 
 namespace STTTS.UI.ViewModels;
 
@@ -11,6 +12,8 @@ public class MainModelViewModel : BaseViewModel
 
 	public BaseSpeechRecognizer BaseSpeechRecognizer { get; set; }
 	public BaseSpeechSynthesizer BaseSpeechSynthesizer { get; set; }
+
+	protected OSC OSC { get; set; }
 
 	public string RecognizedText
 	{
@@ -26,6 +29,7 @@ public class MainModelViewModel : BaseViewModel
 	{
 		SelectRecognizer();
 		SelectSynthesizer();
+		OSC = new();
 	}
 
 	private void SelectRecognizer()
@@ -37,7 +41,7 @@ public class MainModelViewModel : BaseViewModel
 
 	private void SelectSynthesizer()
 	{
-		BaseSpeechSynthesizer = new SystemSpechSynthesizer();
+		BaseSpeechSynthesizer = new SystemSpeechSynthesizer();
 		BaseSpeechSynthesizer.StateChanged += OnSynthesizerStateChanged;
 	}
 
@@ -45,6 +49,7 @@ public class MainModelViewModel : BaseViewModel
 	{
 		RecognizedText = e.Text;
 		BaseSpeechSynthesizer.AddSpeechMessage(e.Text);
+		OSC.SendText(e.Text);
 	}
 
 	// Speech Recognizer methods & properties

@@ -34,6 +34,7 @@
     <ProjectReference Include="..\STTTS.Common\STTTS.Common.csproj" />
     <ProjectReference Include="..\STTTS.Engine.STT\STTTS.Engine.STT.csproj" />
     <ProjectReference Include="..\STTTS.Engine.TTS\STTTS.Engine.TTS.csproj" />
+    <ProjectReference Include="..\STTTS.Integrations\STTTS.Integrations.csproj" />
     <ProjectReference Include="..\STTTS.IO\STTTS.IO.csproj" />
   </ItemGroup>
 

@@ -3,7 +3,7 @@ using STTTS.Common.Events;
 
 namespace STTTS.Engine.TTS.Synthesizers;
 
-public abstract class BaseSpeechSynthesizer
+public abstract class BaseSpeechSynthesizer : IDisposable
 {
 	public event EventHandler<ErrorEventArgs>? ErrorTriggered;
 	public event EventHandler<EventArgs>? StateChanged;
@@ -97,4 +97,6 @@ public abstract class BaseSpeechSynthesizer
 	/// <param name="e"></param>
 	protected void DeviceChanged(object? sender, ValueChangedEventArgs<string> e) =>
 		Stop();
+
+	public abstract void Dispose();
 }

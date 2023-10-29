@@ -3,7 +3,7 @@ using STTTS.Common.Events;
 
 namespace STTTS.Engine.STT.Recognizers;
 
-public abstract class BaseSpeechRecognizer
+public abstract class BaseSpeechRecognizer : IDisposable
 {
 	public event EventHandler<ErrorEventArgs>? ErrorTriggered;
 	public event EventHandler<EventArgs>? StateChanged;
@@ -74,4 +74,6 @@ public abstract class BaseSpeechRecognizer
 	/// <param name="e"></param>
 	protected void DeviceChanged(object? sender, ValueChangedEventArgs<string> e) =>
 		Stop();
+
+	public abstract void Dispose();
 }

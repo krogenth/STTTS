@@ -18,7 +18,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "STTTS.IO", "STTTS.IO\STTTS.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "STTTS.Engine.STT", "STTTS.Engine.STT\STTTS.Engine.STT.csproj", "{2E53412C-1250-4428-95C6-B0438B88FFDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STTTS.Engine.TTS", "STTTS.Engine.TTS\STTTS.Engine.TTS.csproj", "{DCCD57B7-C31F-4A09-BCD3-16D1D99E7D6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "STTTS.Engine.TTS", "STTTS.Engine.TTS\STTTS.Engine.TTS.csproj", "{DCCD57B7-C31F-4A09-BCD3-16D1D99E7D6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STTTS.Integrations", "STTTS.Integrations\STTTS.Integrations.csproj", "{FDA9EC8B-D9DA-4227-B27E-D82E075D146C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +48,10 @@ Global
 		{DCCD57B7-C31F-4A09-BCD3-16D1D99E7D6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCCD57B7-C31F-4A09-BCD3-16D1D99E7D6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCCD57B7-C31F-4A09-BCD3-16D1D99E7D6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDA9EC8B-D9DA-4227-B27E-D82E075D146C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDA9EC8B-D9DA-4227-B27E-D82E075D146C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDA9EC8B-D9DA-4227-B27E-D82E075D146C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDA9EC8B-D9DA-4227-B27E-D82E075D146C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
