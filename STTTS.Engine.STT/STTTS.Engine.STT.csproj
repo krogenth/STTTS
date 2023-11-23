@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <PackageReference Include="Vosk" />
+	<PackageReference Include="Whisper.net" />
+	<PackageReference Include="Whisper.net.Runtime" />
   </ItemGroup>
 
   <ItemGroup>

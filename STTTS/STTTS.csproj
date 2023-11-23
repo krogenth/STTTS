@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="UI\Models\" />
     <AvaloniaResource Include="Assets\**" />
     <AvaloniaXaml Remove="Configuration\**" />
     <AvaloniaXaml Remove="Engine\**" />

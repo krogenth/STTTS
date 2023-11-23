@@ -34,7 +34,9 @@
 			  Grid.Row="2"
 			  IsVisible="False">
 			<settings:SettingsAudioView DataContext="{Binding AudioVM}" Name="AudioPage" />
+			<settings:SettingsRecognizerView DataContext="{Binding RecognizerVM}" Name="RecognizerPage" />
 			<settings:SettingsVoskModelView DataContext="{Binding VoskVM}" Name="VoskPage" />
+			<settings:SettingsWhisperModelView DataContext="{Binding WhisperVM}" Name="WhisperPage" />
 			<settings:SettingsVoiceView DataContext="{Binding VoiceVM}" Name="VoicePage" />
 		</Grid>
 		<ui:NavigationView Grid.Row="1"
@@ -50,8 +52,12 @@
 				<ui:NavigationViewItem IsSelected="True"
 									   Content="Audio"
 									   Tag="AudioPage" />
+				<ui:NavigationViewItem Content="Recognizer"
+									   Tag="RecognizerPage" />
 				<ui:NavigationViewItem Content="Vosk"
 									   Tag="VoskPage" />
+				<ui:NavigationViewItem Content="Whisper"
+									   Tag="WhisperPage" />
 				<ui:NavigationViewItem Content="Voice"
 									   Tag="VoicePage" />
 			</ui:NavigationView.MenuItems>

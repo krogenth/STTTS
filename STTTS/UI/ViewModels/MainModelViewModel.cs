@@ -1,5 +1,8 @@
 ﻿using System;
+using STTTS.Common.Configuration;
 using STTTS.Common.Events;
+using STTTS.Common.Extensions;
+using STTTS.Common.Types;
 using STTTS.Engine.STT.Recognizers;
 using STTTS.Engine.TTS.Synthesizers;
 using STTTS.Integrations;
@@ -27,16 +30,31 @@ public class MainModelViewModel : BaseViewModel
 
 	public MainModelViewModel()
 	{
-		SelectRecognizer();
+		SelectRecognizer(ConfigurationState.Instance.Recognizer.Recognizer.Value.ToEnum<RecognizerType>());
 		SelectSynthesizer();
 		OSC = new();
+		ConfigurationState.Instance.Recognizer.Recognizer.ValueChanged += OnRecognizerChanged;
 	}
 
-	private void SelectRecognizer()
+	private void SelectRecognizer(RecognizerType recognizer)
 	{
-		BaseSpeechRecognizer = new VoskSpeechRecognizer();
-		BaseSpeechRecognizer.RecognizedSpeech += OnRecognizedSpeech;
-		BaseSpeechRecognizer.StateChanged += OnRecognizerStateChanged;
+		switch (recognizer)
+		{
+			case RecognizerType.Vosk:
+				BaseSpeechRecognizer = new VoskSpeechRecognizer();
+				break;
+			case RecognizerType.Whisper:
+				BaseSpeechRecognizer = new WhisperSpeechRecognizer();
+				break;
+		}
+
+		if (BaseSpeechRecognizer != null)
+		{
+			BaseSpeechRecognizer.RecognizedSpeech += OnRecognizedSpeech;
+			BaseSpeechRecognizer.StateChanged += OnRecognizerStateChanged;
+		}
+
+		OnPropertyChanged(nameof(BaseSpeechRecognizer));
 	}
 
 	private void SelectSynthesizer()
@@ -44,6 +62,9 @@ public class MainModelViewModel : BaseViewModel
 		BaseSpeechSynthesizer = new SystemSpeechSynthesizer();
 		BaseSpeechSynthesizer.StateChanged += OnSynthesizerStateChanged;
 	}
+
+	private void OnRecognizerChanged(object? sender, ValueChangedEventArgs<string> e) =>
+		SelectRecognizer(e.NewValue.ToEnum<RecognizerType>());
 
 	private void OnRecognizedSpeech(object? sender, RecognizedSpeechEventArgs e)
 	{

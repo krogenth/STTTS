@@ -1,20 +1,20 @@
-﻿using System.Text.Json;
-using System.Text.Json.Serialization;
-using NAudio.CoreAudioApi;
+﻿using NAudio.CoreAudioApi;
 using NAudio.Wave;
 using STTTS.Common.Audio;
 using STTTS.Common.Configuration;
 using Vosk;
+using Whisper.net;
+using Whisper.net.Ggml;
 
 namespace STTTS.Engine.STT.Recognizers;
 
-public class VoskSpeechRecognizer : BaseSpeechRecognizer
+public sealed class WhisperSpeechRecognizer : BaseSpeechRecognizer
 {
-	private Model? _model;
-	private VoskRecognizer? _recognizer;
+	private WhisperProcessor? _recognizer;
 	private IWaveIn? _waveInEvent;
+	private DateTime _latestPoll = DateTime.Now;
 
-	public VoskSpeechRecognizer() : base()
+	public WhisperSpeechRecognizer() : base()
 	{
 		AttachEventHandlers();
 	}
@@ -23,29 +23,23 @@ public class VoskSpeechRecognizer : BaseSpeechRecognizer
 	{
 		ConfigurationState.Instance.Audio.InputDeviceID.ValueChanged += DeviceChanged;
 		ConfigurationState.Instance.Audio.OutputDeviceID.ValueChanged += DeviceChanged;
+		ConfigurationState.Instance.Whisper.Model.ValueChanged += DeviceChanged;
 	}
 
 	private void DetachEventHandlers()
 	{
 		ConfigurationState.Instance.Audio.InputDeviceID.ValueChanged -= DeviceChanged;
 		ConfigurationState.Instance.Audio.OutputDeviceID.ValueChanged -= DeviceChanged;
+		ConfigurationState.Instance.Whisper.Model.ValueChanged -= DeviceChanged;
 	}
 
 	public override bool Start()
 	{
-		string path = ConfigurationState.Instance.Vosk.ModelDirectory.Value;
-		if (string.IsNullOrEmpty(path))
-		{
-			return false;
-		}
-
-		// only if we are not paused do we need to initialize everything
 		if (!Paused)
 		{
 			try
 			{
-				_model = new Model(path);
-				_recognizer = new VoskRecognizer(_model, 48000f);
+				Task.Run(LoadModel);
 			}
 			catch (Exception _)
 			{
@@ -78,14 +72,24 @@ public class VoskSpeechRecognizer : BaseSpeechRecognizer
 			return;
 		}
 
-		if (_recognizer!.AcceptWaveform(e.Buffer, e.BytesRecorded))
+		if (e.BytesRecorded <= 0)
 		{
-			string json = _recognizer.Result();
-			var result = JsonSerializer.Deserialize<VoskResult>(json);
-			if (result != null && !string.IsNullOrEmpty(result.Text))
-			{
-				OnRecognizedSpeech(result.Text);
-			}
+			return;
+		}
+
+		Task.Run(() => ProcessAudioData(new MemoryStream(e.Buffer)));
+	}
+
+	private async Task ProcessAudioData(MemoryStream stream)
+	{
+		if (_recognizer == null)
+		{
+			return;
+		}
+
+		await foreach (var result in _recognizer!.ProcessAsync(stream))
+		{
+			OnRecognizedSpeech(result.Text);
 		}
 	}
 
@@ -117,12 +121,6 @@ public class VoskSpeechRecognizer : BaseSpeechRecognizer
 				_recognizer = null;
 			}
 
-			if (_model != null)
-			{
-				_model.Dispose();
-				_model = null;
-			}
-			
 			Paused = false;
 			Stopped = true;
 			OnStateChanged();
@@ -138,24 +136,27 @@ public class VoskSpeechRecognizer : BaseSpeechRecognizer
 
 		DetachEventHandlers();
 	}
-}
 
-public class VoskResultWord
-{
-	[JsonPropertyName("conf")]
-	public float Conf { get; set; }
-	[JsonPropertyName("end")]
-	public float End { get; set; }
-	[JsonPropertyName("start")]
-	public float Start { get; set; }
-	[JsonPropertyName("word")]
-	public string Word { get; set; } = string.Empty;
-}
+	private async Task LoadModel()
+	{
+		string filename = WhisperModels.WhisperModelStringToFilename(
+			ConfigurationState.Instance.Whisper.Model.Value
+		);
 
-public class VoskResult
-{
-	[JsonPropertyName("result")]
-	public List<VoskResultWord> Result { get; set; } = new List<VoskResultWord>();
-	[JsonPropertyName("text")]
-	public string Text { get; set; } = string.Empty;
+		GgmlType ggmlModelType = WhisperModels.WhisperModelStringToGgmlType(
+			ConfigurationState.Instance.Whisper.Model.Value
+		);
+
+		if (!File.Exists(filename))
+		{
+			using var modelStream = await WhisperGgmlDownloader.GetGgmlModelAsync(ggmlModelType);
+			using var fileWriter = File.OpenWrite(filename);
+			await modelStream.CopyToAsync(fileWriter);
+		}
+
+		using var whisperFactory = WhisperFactory.FromPath(filename);
+		_recognizer = whisperFactory.CreateBuilder()
+			.WithLanguage("auto")
+			.Build();
+	}
 }

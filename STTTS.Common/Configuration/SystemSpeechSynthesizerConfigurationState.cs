@@ -2,7 +2,6 @@
 using STTTS.Common.Utility;
 
 namespace STTTS.Common.Configuration;
-
 public class SystemSpeechSynthesizerConfigurationState
 {
 	public ReactiveObject<string> VoiceID { get; private set; }

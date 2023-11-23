@@ -12,6 +12,7 @@
 		<StackPanel Orientation="Vertical"
 					Margin="10">
 			<TextBlock Text="Recognizer:" />
+			<TextBlock Text="{Binding BaseSpeechRecognizer}" />
 			<StackPanel Orientation="Horizontal"
 						Spacing="10">
 				<Button Command="{Binding StartRecognizer}" IsEnabled="{Binding CanStartRecognizer}">Start</Button>

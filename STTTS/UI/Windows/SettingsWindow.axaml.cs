@@ -38,7 +38,9 @@ public partial class SettingsWindow : Window
 			NavPanel.Content = navigationViewItem.Tag.ToString() switch
 			{
 				"AudioPage" => AudioPage,
+				"RecognizerPage" => RecognizerPage,
 				"VoskPage" => VoskPage,
+				"WhisperPage" => WhisperPage,
 				"VoicePage" => VoicePage,
 				_ => throw new NotImplementedException(),
 			};

@@ -17,6 +17,8 @@
 		
     <!-- Speech-To-Text Frameworks -->
     <PackageVersion Include="Vosk" Version="0.3.38" />
+		<PackageVersion Include="Whisper.net" Version="1.4.7" />
+		<PackageVersion Include="Whisper.net.Runtime" Version="1.4.7" />
 
 		<!-- Text-to-Speech Frameworks -->
 		<PackageVersion Include="System.Speech" Version="7.0.0" />

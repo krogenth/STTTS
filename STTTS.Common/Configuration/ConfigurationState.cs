@@ -8,13 +8,17 @@ public sealed class ConfigurationState
 	public static ConfigurationState Instance => _instance.Value;
 
 	public AudioConfigurationState Audio { get; }
+	public RecognizerConfigurationState Recognizer { get; }
 	public VoskConfigurationState Vosk { get; }
+	public WhisperConfigurationState Whisper { get; }
 	public SystemSpeechSynthesizerConfigurationState SystemSpeechSynthesizer { get; }
 
 	private ConfigurationState()
 	{
 		Audio = new();
+		Recognizer = new();
 		Vosk = new();
+		Whisper = new();
 		SystemSpeechSynthesizer = new();
 	}
 
@@ -43,7 +47,9 @@ public sealed class ConfigurationState
 	private void LoadDefaultConfigurationState()
 	{
 		Audio.LoadDefaultConfiguration();
+		Recognizer.LoadDefaultConfiguration();
 		Vosk.LoadDefaultConfiguration();
+		Whisper.LoadDefaultConfiguration();
 		SystemSpeechSynthesizer.LoadDefaultConfiguration();
 	}
 

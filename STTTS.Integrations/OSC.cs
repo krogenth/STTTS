@@ -2,6 +2,7 @@
 using System.Net.Sockets;
 
 namespace STTTS.Integrations;
+
 public class OSC
 {
 	public event EventHandler<ErrorEventArgs>? ErrorTriggered;
@@ -21,7 +22,7 @@ public class OSC
 	public void SendText(string text)
 	{
 		using var writer = new OscWriter();
-		uint tags = (uint)',' + ((uint)TypeTag.String << 8) + ((uint)(OpenChatWindow ? TypeTag.True: TypeTag.False) << 16);
+		uint tags = (uint)',' + ((uint)TypeTag.String << 8) + ((uint)(OpenChatWindow ?  TypeTag.False : TypeTag.True) << 16);
 		writer.WriteAddressAndTags("/chatbox/input", tags);
 		writer.Write(text);
 		_client.Socket.Send(writer.Buffer, writer.Length, SocketFlags.None);
