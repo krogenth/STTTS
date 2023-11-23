@@ -2,16 +2,27 @@ using System;
 using Avalonia.Controls;
 using FluentAvalonia.Core;
 using FluentAvalonia.UI.Controls;
+using STTTS.UI.ViewModels.Settings;
 
 namespace STTTS.UI.Windows;
 
 public partial class SettingsWindow : Window
 {
-    public SettingsWindow()
-    {
-        InitializeComponent();
+    public SettingsWindow(SettingsWindowViewModel viewModel)
+	{
+		DataContext = viewModel;
+		viewModel.CloseWindow += Close;
+
+		InitializeComponent();
 		Load();
     }
+
+	public SettingsWindow()
+	{
+		DataContext = new SettingsWindowViewModel();
+		InitializeComponent();
+		Load();
+	}
 
 	private void Load()
 	{

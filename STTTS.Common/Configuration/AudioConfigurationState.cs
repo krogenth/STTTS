@@ -16,6 +16,13 @@ public class AudioConfigurationState
 		PlaybackDeviceID = new(string.Empty);
 	}
 
+	public void LoadFileConfiguration(ConfigurationFileFormat configurationFileFormat)
+	{
+		InputDeviceID.Value = configurationFileFormat.InputDeviceID;
+		OutputDeviceID.Value = configurationFileFormat.OutputDeviceID;
+		PlaybackDeviceID.Value = configurationFileFormat.PlaybackDeviceID;
+	}
+
 	public void LoadDefaultConfiguration()
 	{
 		InputDeviceID = new(AudioDevices.GetInputAudioDevices().First().ID);

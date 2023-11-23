@@ -18,10 +18,7 @@ public class MenuBarViewModel : BaseViewModel
 
 	public void OpenSettings()
 	{
-		var window = new SettingsWindow()
-		{
-			DataContext = new Settings.SettingsWindowViewModel(),
-		};
+		var window = new SettingsWindow(new Settings.SettingsWindowViewModel());
 		window.Show();
 	}
 }

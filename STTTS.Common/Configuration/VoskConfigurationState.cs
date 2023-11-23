@@ -1,6 +1,7 @@
 ﻿using STTTS.Common.Utility;
 
 namespace STTTS.Common.Configuration;
+
 public class VoskConfigurationState
 {
 	public ReactiveObject<string> ModelDirectory { get; private set; }
@@ -8,6 +9,11 @@ public class VoskConfigurationState
 	public VoskConfigurationState()
 	{
 		ModelDirectory = new(string.Empty);
+	}
+
+	public void LoadFileConfiguration(ConfigurationFileFormat configurationFileFormat)
+	{
+		ModelDirectory.Value = configurationFileFormat.VoskModelDirectory;
 	}
 
 	public void LoadDefaultConfiguration()

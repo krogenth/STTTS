@@ -12,4 +12,8 @@
 	<PackageReference Include="System.Speech" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\STTTS.IO\STTTS.IO.csproj" />
+  </ItemGroup>
+
 </Project>

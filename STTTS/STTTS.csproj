@@ -10,10 +10,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Engine\TTS\" />
-    <Folder Include="UI\Models\" />
     <AvaloniaResource Include="Assets\**" />
-    <Folder Include="Configuration\" />
+    <AvaloniaXaml Remove="Configuration\**" />
+    <AvaloniaXaml Remove="Engine\**" />
+    <AvaloniaXaml Remove="UI\Models\**" />
+    <Compile Remove="Configuration\**" />
+    <Compile Remove="Engine\**" />
+    <Compile Remove="UI\Models\**" />
+    <EmbeddedResource Remove="Configuration\**" />
+    <EmbeddedResource Remove="Engine\**" />
+    <EmbeddedResource Remove="UI\Models\**" />
+    <None Remove="Configuration\**" />
+    <None Remove="Engine\**" />
+    <None Remove="UI\Models\**" />
   </ItemGroup>
 
   <ItemGroup>

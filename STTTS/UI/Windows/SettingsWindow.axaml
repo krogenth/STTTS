@@ -56,5 +56,15 @@
 									   Tag="VoicePage" />
 			</ui:NavigationView.MenuItems>
 		</ui:NavigationView>
+		<StackPanel Grid.Row="2"
+					Margin="10"
+					Spacing="10"
+					Orientation="Horizontal"
+					HorizontalAlignment="Right">
+			<Button HotKey="Enter"
+					Command="{Binding SaveSettings}">
+				Save to File
+			</Button>
+		</StackPanel>
 	</Grid>
 </Window>

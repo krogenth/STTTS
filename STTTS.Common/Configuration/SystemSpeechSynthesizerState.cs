@@ -2,6 +2,7 @@
 using STTTS.Common.Utility;
 
 namespace STTTS.Common.Configuration;
+
 public class SystemSpeechSynthesizerConfigurationState
 {
 	public ReactiveObject<string> VoiceID { get; private set; }
@@ -9,6 +10,11 @@ public class SystemSpeechSynthesizerConfigurationState
 	public SystemSpeechSynthesizerConfigurationState()
 	{
 		VoiceID = new(string.Empty);
+	}
+
+	public void LoadFileConfiguration(ConfigurationFileFormat configurationFileFormat)
+	{
+		VoiceID.Value = configurationFileFormat.SystemSpeechVoiceID;
 	}
 
 	public void LoadDefaultConfiguration()
