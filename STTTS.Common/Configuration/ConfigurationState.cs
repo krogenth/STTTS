@@ -10,12 +10,14 @@ public sealed class ConfigurationState
 	public AudioConfigurationState Audio { get; }
 	public VoskConfigurationState Vosk { get; }
 	public SystemSpeechSynthesizerConfigurationState SystemSpeechSynthesizer { get; }
+	public OSCConfigurationState OSC { get; }
 
 	private ConfigurationState()
 	{
 		Audio = new();
 		Vosk = new();
 		SystemSpeechSynthesizer = new();
+		OSC = new();
 	}
 
 	public void LoadConfiguration()
@@ -37,6 +39,7 @@ public sealed class ConfigurationState
 			Audio.LoadFileConfiguration(configurationFileFormat!);
 			Vosk.LoadFileConfiguration(configurationFileFormat!);
 			SystemSpeechSynthesizer.LoadFileConfiguration(configurationFileFormat!);
+			OSC.LoadFileConfiguration(configurationFileFormat!);
 		}
 	}
 
@@ -45,6 +48,7 @@ public sealed class ConfigurationState
 		Audio.LoadDefaultConfiguration();
 		Vosk.LoadDefaultConfiguration();
 		SystemSpeechSynthesizer.LoadDefaultConfiguration();
+		OSC.LoadDefaultConfiguration();
 	}
 
 	public void SaveConfigurationStateToFile() =>

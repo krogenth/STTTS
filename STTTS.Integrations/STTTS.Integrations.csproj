@@ -10,4 +10,8 @@
     <PackageReference Include="BuildSoft.OscCore" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\STTTS.Common\STTTS.Common.csproj" />
+  </ItemGroup>
+
 </Project>

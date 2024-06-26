@@ -1,5 +1,6 @@
 ﻿using BuildSoft.OscCore;
 using System.Net.Sockets;
+using STTTS.Common.Configuration;
 
 namespace STTTS.Integrations;
 public class OSC
@@ -12,10 +13,22 @@ public class OSC
 	protected OscClient _client;
 	//protected OscServer _server;
 
-	public OSC()
+	public static OSC? Instance { get; private set; } = null;
+
+	private OSC()
 	{
-		_client = new OscClient("127.0.0.1", 9000);
+		_client = new OscClient("127.0.0.1", ConfigurationState.Instance.OSC.SendPort.Value);
 		//_server = new OscServer(9001);
+	}
+
+	public static void Initialize()
+	{
+		Instance ??= new();
+	}
+
+	public static void Deinitialize()
+	{
+		Instance = null;
 	}
 
 	public void SendText(string text)
