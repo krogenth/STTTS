@@ -48,7 +48,7 @@ public class AudioDeviceSelectorViewModel : BaseViewModel
 	}
 }
 
-public class AudioDeviceChangedEventArgs
+public class AudioDeviceChangedEventArgs : EventArgs
 {
 	public string DeviceID { get; set; }
 	public AudioDeviceType AudioDeviceType { get; set; }

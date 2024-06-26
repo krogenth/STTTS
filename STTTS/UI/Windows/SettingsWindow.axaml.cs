@@ -40,6 +40,7 @@ public partial class SettingsWindow : Window
 				"AudioPage" => AudioPage,
 				"VoskPage" => VoskPage,
 				"VoicePage" => VoicePage,
+				"OSCPage" => OSCPage,
 				_ => throw new NotImplementedException(),
 			};
 		}

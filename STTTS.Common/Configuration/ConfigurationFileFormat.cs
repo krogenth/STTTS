@@ -9,6 +9,7 @@ public class ConfigurationFileFormat
 	public string InputDeviceID { get; set; }
 	public string OutputDeviceID { get; set; }
 	public string PlaybackDeviceID { get; set; }
+	public int SendPort { get; set; }
 
 	public ConfigurationFileFormat() { }
 
@@ -19,6 +20,7 @@ public class ConfigurationFileFormat
 		InputDeviceID = state.Audio.InputDeviceID.Value;
 		OutputDeviceID = state.Audio.OutputDeviceID.Value;
 		PlaybackDeviceID = state.Audio.PlaybackDeviceID.Value;
+		SendPort = state.OSC.SendPort.Value;
 	}
 
 	public static bool TryLoad(string filepath, out ConfigurationFileFormat? configurationFileFormat)

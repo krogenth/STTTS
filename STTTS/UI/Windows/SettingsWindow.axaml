@@ -36,6 +36,7 @@
 			<settings:SettingsAudioView DataContext="{Binding AudioVM}" Name="AudioPage" />
 			<settings:SettingsVoskModelView DataContext="{Binding VoskVM}" Name="VoskPage" />
 			<settings:SettingsVoiceView DataContext="{Binding VoiceVM}" Name="VoicePage" />
+			<settings:SettingsOSCView DataContext="{Binding OSCVM}" Name="OSCPage" />
 		</Grid>
 		<ui:NavigationView Grid.Row="1"
 						   IsSettingsVisible="False"
@@ -54,6 +55,8 @@
 									   Tag="VoskPage" />
 				<ui:NavigationViewItem Content="Voice"
 									   Tag="VoicePage" />
+				<ui:NavigationViewItem Content="OSC"
+									   Tag="OSCPage" />
 			</ui:NavigationView.MenuItems>
 		</ui:NavigationView>
 		<StackPanel Grid.Row="2"

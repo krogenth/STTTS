@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -50,6 +50,9 @@
   <ItemGroup>
     <Compile Update="UI\Views\AudioDeviceSelectorView.axaml.cs">
       <DependentUpon>AudioDeviceSelectorView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Views\NumberInputView.axaml.cs">
+      <DependentUpon>NumberInputView.axaml</DependentUpon>
     </Compile>
     <Compile Update="UI\Views\Settings\SettingsAudioView.axaml.cs">
       <DependentUpon>SettingsAudioView.axaml</DependentUpon>

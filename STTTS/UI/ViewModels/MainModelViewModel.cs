@@ -13,8 +13,6 @@ public class MainModelViewModel : BaseViewModel
 	public BaseSpeechRecognizer BaseSpeechRecognizer { get; set; }
 	public BaseSpeechSynthesizer BaseSpeechSynthesizer { get; set; }
 
-	protected OSC OSC { get; set; }
-
 	public string RecognizedText
 	{
 		get => _recognizedText;
@@ -29,7 +27,6 @@ public class MainModelViewModel : BaseViewModel
 	{
 		SelectRecognizer();
 		SelectSynthesizer();
-		OSC = new();
 	}
 
 	private void SelectRecognizer()
@@ -49,12 +46,12 @@ public class MainModelViewModel : BaseViewModel
 	{
 		RecognizedText = e.Text;
 		BaseSpeechSynthesizer.AddSpeechMessage(e.Text);
-		OSC.SendText(e.Text);
+		OSC.Instance!.SendText(e.Text);
 	}
 
 	// Speech Recognizer methods & properties
 	public bool CanStartRecognizer => BaseSpeechRecognizer.CanStart;
-	public void StartRecognizer() => BaseSpeechRecognizer.Start();
+	public bool StartRecognizer() => BaseSpeechRecognizer.Start();
 
 	public bool CanPauseRecognizer => BaseSpeechRecognizer.CanPause;
 	public void PauseRecognizer(object _) => BaseSpeechRecognizer.Pause();
@@ -74,13 +71,21 @@ public class MainModelViewModel : BaseViewModel
 
 	// Speech Synthesizer methods & properties
 	public bool CanStartSynthesizer => BaseSpeechSynthesizer.CanStart;
-	public void StartSynthesizer() => BaseSpeechSynthesizer.Start();
+	public void StartSynthesizer()
+	{
+		BaseSpeechSynthesizer.Start();
+		OSC.Initialize();
+	}
 
 	public bool CanPauseSynthesizer => BaseSpeechSynthesizer.CanPause;
 	public void PauseSynthesizer(object _) => BaseSpeechSynthesizer.Pause();
 
 	public bool CanStopSynthesizer => BaseSpeechSynthesizer.CanStop;
-	public void StopSynthesizer(object _) => BaseSpeechSynthesizer.Stop();
+	public void StopSynthesizer(object _)
+	{
+		BaseSpeechSynthesizer.Stop();
+		OSC.Deinitialize();
+	}
 
 	private void NotifySynthesizerChanged()
 	{
