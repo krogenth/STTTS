@@ -38,13 +38,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        dotnet-version: [ '7.0.x' ]
+        dotnet-version: [ '8.0.x' ]
         configuration: [ Release ]
         os: [ windows-latest ]
         include:
           - os: windows-latest
             OS_NAME: Windows x64
-            DOTNET_RUNTIME_IDENTIFIER: win10-x64
+            DOTNET_RUNTIME_IDENTIFIER: win-x64
             RELEASE_ZIP_OS_NAME: win_x64
 
     steps:
